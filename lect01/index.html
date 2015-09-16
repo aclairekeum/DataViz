@@ -1,0 +1,126 @@
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <title>Project 1</title>
+
+</head>
+
+<body>
+  
+  <h1>Project 1 &mdash; Warm Up</h1> 
+  <h2>Team: Claire Keum</h2>
+  
+  <p>Question 1</p>
+  <canvas id="canvas-q1" height="500" width="500" style="border: 1px solid grey">
+
+  </canvas>
+
+  <p>Question 2</p>
+  <canvas id="canvas-q2" height="500" width="500" style="border: 1px solid grey">
+  </canvas>
+
+  <p>Question 3</p>
+  <canvas id="canvas-q3" height="500" width="500" style="border: 1px solid grey">
+  </canvas>
+
+  
+  <script>
+
+window.addEventListener("load",run,false);
+
+function run () {
+   // Put calls to your drawing functions for Q1, Q2, Q3 here
+   drawScenery(document);
+}
+
+function drawScenery(document) {
+	var canvasq1 = document.getElementById("canvas-q1");
+	canvasq1.style.backgroundColor = '#B1D9FA';
+	snail(canvasq1);
+	// var ctxt = canvasq1.getContext("2d");
+	// ctxt.beginPath();
+	// ctxt.moveTo(0,0);
+	// ctxt.lineTo(20,20);
+	// ctxt.stroke();
+	// ctxt = document.setElement('');
+	// ctxt.beginPath();
+}
+
+function snail(canvas) {
+
+	var ctxt = canvas.getContext("2d");
+	ctxt.beginPath();
+	var radius = 0;
+	var angle = 0;
+
+	var centerx = canvas.width/2;
+	var centery = canvas.height/2;
+	var x = 0 
+	var y = 0
+
+	ctxt.moveTo(245,245);
+	for(var n = 0; n < 202; n++){
+		radius += 0.5;	
+		angle += (Math.PI * 2) / 64;
+		x = centerx + radius * Math.cos(angle);
+		y = centery + radius * Math.sin(angle);
+		ctxt.lineTo(x, y);
+	}
+	ctxt.lineTo(150, y)
+	ctxt.quadraticCurveTo(80, 300, 100, 150)
+	ctxt.moveTo(135,150)
+	ctxt.arc(100,150, 35, 0, 2*Math.PI)
+	ctxt.moveTo(135,150)
+	ctxt.arc(100,150, 20, 0, 2*Math.PI)
+	ctxt.fillStyle="#D4FAB1"
+	ctxt.fill()
+	ctxt.stroke();
+}
+
+function question2(document) {
+
+
+}
+
+
+// the moves for drawing letter H, for debugging
+
+var letterHMoves = ["f",40,
+		    "r",90,
+		    "f",40,
+		    "l",90,
+		    "f",20,
+		    "l",90,
+		    "f",40,
+		    "r",90,
+		    "f",40,
+		    "r",90,
+		    "f",100,
+		    "r",90,
+		    "f",40,
+		    "r",90,
+		    "f",40,
+		    "l",90,
+		    "f",20,
+		    "l",90,
+		    "f",40,
+		    "r",90,
+		    "f",40,
+		    "r",90,
+		    "f",100];
+
+
+
+function question3(document) {
+
+	
+}
+
+  </script>
+
+</body>  
+
+</html>
