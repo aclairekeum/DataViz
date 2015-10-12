@@ -1,0 +1,3 @@
+[submodule "dataviz-project2"]
+	path = dataviz-project2
+	url = https://github.com/phiaseitz/dataviz-project2.git
