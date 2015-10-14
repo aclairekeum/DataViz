@@ -11,11 +11,10 @@
 <body>
   
   <h1>Project 1 &mdash; Warm Up</h1> 
-  <h2>Team: Claire Keum</h2>
+  <h2>Team: Chelsea Bailey | Brendan Caporaletti | Claire(AYoung) Keum</h2>
   
   <p>Question 1</p>
   <canvas id="canvas-q1" height="500" width="500" style="border: 1px solid grey">
-
   </canvas>
 
   <p>Question 2</p>
@@ -29,98 +28,225 @@
   
   <script>
 
-window.addEventListener("load",run,false);
+	window.addEventListener("load",run,false);
 
-function run () {
-   // Put calls to your drawing functions for Q1, Q2, Q3 here
-   drawScenery(document);
-}
-
-function drawScenery(document) {
-	var canvasq1 = document.getElementById("canvas-q1");
-	canvasq1.style.backgroundColor = '#B1D9FA';
-	snail(canvasq1);
-	// var ctxt = canvasq1.getContext("2d");
-	// ctxt.beginPath();
-	// ctxt.moveTo(0,0);
-	// ctxt.lineTo(20,20);
-	// ctxt.stroke();
-	// ctxt = document.setElement('');
-	// ctxt.beginPath();
-}
-
-function snail(canvas) {
-
-	var ctxt = canvas.getContext("2d");
-	ctxt.beginPath();
-	var radius = 0;
-	var angle = 0;
-
-	var centerx = canvas.width/2;
-	var centery = canvas.height/2;
-	var x = 0 
-	var y = 0
-
-	ctxt.moveTo(245,245);
-	for(var n = 0; n < 202; n++){
-		radius += 0.5;	
-		angle += (Math.PI * 2) / 64;
-		x = centerx + radius * Math.cos(angle);
-		y = centery + radius * Math.sin(angle);
-		ctxt.lineTo(x, y);
+	function run () {
+	   // Put calls to your drawing functions for Q1, Q2, Q3 here
+	   drawScenery(document); //q1
+	   drawKoch(document); //q2
+	   drawAnimScenery(document); //q3
 	}
-	ctxt.lineTo(150, y)
-	ctxt.quadraticCurveTo(80, 300, 100, 150)
-	ctxt.moveTo(135,150)
-	ctxt.arc(100,150, 35, 0, 2*Math.PI)
-	ctxt.moveTo(135,150)
-	ctxt.arc(100,150, 20, 0, 2*Math.PI)
-	ctxt.fillStyle="#D4FAB1"
-	ctxt.fill()
-	ctxt.stroke();
-}
 
-function question2(document) {
+	function drawScenery(document) {
+		var canvasq1 = document.getElementById("canvas-q1");
+		canvasq1.style.backgroundColor = '#B5EDFF';
+		snail(canvasq1, 0);
+	}
+
+	function drawKoch(document){
+		var canvasq2 = document.getElementById("canvas-q2");
+		draw(canvasq2, 100, 163, koch(5));
+	}
+		
+	function snail(canvas, time) {
+		var ctxt = canvas.getContext("2d");
+		
+		//SKY
+		var height = 5000
+		var skytime = time%5000
+		var y = -skytime
+		ctxt.beginPath();
+		ctxt.moveTo(0,y);
+		ctxt.lineTo(500, y);
+		ctxt.lineTo(500, y+height);
+		ctxt.lineTo(0, y+height);
+		ctxt.closePath();
+		var grd = ctxt.createLinearGradient(250, y, 250, y+height);
+		grd.addColorStop(0,"#B5EDFF");
+		grd.addColorStop(0.5,"#000000");
+		grd.addColorStop(1, "#B5EDFF")
+		ctxt.fillStyle=grd
+		ctxt.fill()
+		
+		//GRASS
+		ctxt.beginPath();
+		ctxt.moveTo(0,255);
+		ctxt.lineTo(500, 255);
+		ctxt.lineTo(500, 500);
+		ctxt.lineTo(0, 500);
+		ctxt.closePath();
+		ctxt.fillStyle="#99F7BC"
+		ctxt.fill()
+		ctxt.stroke();
+
+		
+		//SLIME
+		ctxt.beginPath();
+		var slimetime = time%3000
+		var x_offset = (3000-slimetime)/150
+		if(slimetime<1500)
+		{
+			x_offset = slimetime/150
+		}
+		var x = 140 + x_offset
+		var y = 334
+		ctxt.moveTo(x, y);
+		ctxt.bezierCurveTo(x,y+50,x+200,y+50,x+300,y);
+		ctxt.bezierCurveTo(x+300,y-20,x,y-20,x,y);
+		var grd = ctxt.createLinearGradient(x,y+50,x+300,y);
+		grd.addColorStop(0,"#AD877B");
+		grd.addColorStop(1,"#7BA1AD");
+		ctxt.fillStyle=grd
+		ctxt.fill()
+		ctxt.stroke();
+
+		//SNAIL BODY
+		ctxt.beginPath();
+		var radius = 0;
+		var angle = 0;
+		var centerx = canvas.width/2;
+		var centery = canvas.height/2;
+		var x = 0 
+		var y = 0
+		ctxt.moveTo(245,245)
+		for(var n = 0; n < 202; n++){
+			radius += 0.5;	
+			angle += (Math.PI * 2) / 64;
+			x = centerx + radius * Math.cos(angle);
+			y = centery + radius * Math.sin(angle);
+			ctxt.lineTo(x, y);
+			
+		}
+		ctxt.lineTo(150, y)
+		ctxt.quadraticCurveTo(80, 300, 100, 150)
+		ctxt.fillStyle="#DE964E"
+		ctxt.fill()
+		ctxt.stroke();
+		
+		//HEAD
+		ctxt.beginPath();
+		ctxt.moveTo(135,150)
+		ctxt.arc(100,150, 35, 0, 2*Math.PI)
+		ctxt.moveTo(120,150)
+		ctxt.arc(100,150, 20, 0, 2*Math.PI)
+		ctxt.stroke();
+		ctxt.fillStyle="#AD877B"
+		ctxt.fill()
+
+		//ROCK
+		var rocktime = time%5000/8.7
+		var x = rocktime - 70
+		ctxt.beginPath();
+		ctxt.moveTo(x,400);
+		ctxt.quadraticCurveTo(x+30, 320, x+70, 400)
+		ctxt.closePath();
+		ctxt.fillStyle="#d3d3d3"
+		ctxt.fill()
+		ctxt.stroke();
+		
+	}
+
+	function draw(canvas,x,y,moves){
+		var ctxt = canvas.getContext("2d");
+		var dir = 0
+		ctxt.beginPath();
+		ctxt.moveTo(x,y);
+		for (var i=0; i<moves.length; i+=2)
+		{
+			if (moves[i] == 'f')
+			{
+				ctxt.lineTo(x+=moves[i+1]*Math.cos(dir), y+=moves[i+1]*Math.sin(dir))
+			}
+			else if (moves[i]=='r')
+			{
+				dir += moves[i+1]*Math.PI/180
+			}
+			else if (moves[i]=='l')
+			{
+				dir -= moves[i+1]*Math.PI/180
+			}
+		}
+		ctxt.stroke();
+	}
+
+	function koch(iteration){
+
+		var kochlist = triangle
+		for (var i=0; i<iteration; i+=1)
+		{
+			var sidelength = kochlist[1]/3
+			var newkoch = []
+			for (var j=0; j<kochlist.length; j+=2)
+			{
+				if (kochlist[j] == "f")
+				{
+					newkoch = newkoch.concat(
+						["f", sidelength, 
+						"l", 60, 
+						"f", sidelength, 
+						"r", 120, 
+						"f", sidelength, 
+						"l", 60, 
+						"f", sidelength]);
+				}
+				else 
+				{
+					newkoch = newkoch.concat([kochlist[j], kochlist[j+1]])
+				}
+			}
+			kochlist = newkoch
+		}
+		return kochlist
+	}
+
+	// triangle
+	var triangle = ["f", 300,
+				"r", 120,
+				"f", 300,
+				"r", 120,
+				"f", 300,
+				"r", 120]
+
+	// the moves for drawing letter H, for debugging
+	var letterHMoves = ["f",40,
+			    "r",90,
+			    "f",40,
+			    "l",90,
+			    "f",20,
+			    "l",90,
+			    "f",40,
+			    "r",90,
+			    "f",40,
+			    "r",90,
+			    "f",100,
+			    "r",90,
+			    "f",40,
+			    "r",90,
+			    "f",40,
+			    "l",90,
+			    "f",20,
+			    "l",90,
+			    "f",40,
+			    "r",90,
+			    "f",40,
+			    "r",90,
+			    "f",100];
 
 
-}
 
+	//global variable
+	canvasq3 = document.getElementById("canvas-q3")
 
-// the moves for drawing letter H, for debugging
+	function drawAnimScenery(document) {
+		window.requestAnimationFrame(frame)
+	}
 
-var letterHMoves = ["f",40,
-		    "r",90,
-		    "f",40,
-		    "l",90,
-		    "f",20,
-		    "l",90,
-		    "f",40,
-		    "r",90,
-		    "f",40,
-		    "r",90,
-		    "f",100,
-		    "r",90,
-		    "f",40,
-		    "r",90,
-		    "f",40,
-		    "l",90,
-		    "f",20,
-		    "l",90,
-		    "f",40,
-		    "r",90,
-		    "f",40,
-		    "r",90,
-		    "f",100];
-
-
-
-function question3(document) {
-
-	
-}
+	function frame(timestamp){	
+		var time = timestamp
+	  	snail(canvasq3, time)
+	  	window.requestAnimationFrame(frame)
+	}
 
   </script>
-
 </body>  
-
 </html>
