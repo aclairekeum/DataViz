@@ -1,3 +1,6 @@
 [submodule "dataviz-project2"]
 	path = dataviz-project2
 	url = https://github.com/phiaseitz/dataviz-project2.git
+[submodule "DataVis_PewGlobalAttitudes"]
+	path = DataVis_PewGlobalAttitudes
+	url = https://github.com/ctada/DataVis_PewGlobalAttitudes.git
